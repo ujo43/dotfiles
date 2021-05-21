@@ -1,0 +1,5 @@
+#!/bin/sh
+
+scp kesanen@192.168.0.15:/home/kesanen/2021.ledger $HOME/Documents/budget/
+vim $HOME/Documents/budget/2021.ledger
+scp $HOME/Documents/budget/2021.ledger kesanen@192.168.0.15:/home/kesanen/2021.ledger

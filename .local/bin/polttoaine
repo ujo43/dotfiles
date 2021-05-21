@@ -1,0 +1,37 @@
+#!/bin/sh
+
+#palvelimen ip ja käyttäjänimi
+USER=kesanen
+IP=192.168.0.15
+#autot
+AUTO1=toyota
+AUTO2=ford
+#autojen tiedostonimet
+AUTO1F=toyota_GGS-673.ods
+AUTO2F=ford_ZZF-699.ods
+#polut autojen tiedostoihin palvelimella
+AUTO1P=/home/$USER/polttoaine/$AUTO1F
+AUTO2P=/home/$USER/polttoaine/$AUTO2F
+
+
+echo 'Anna auto pienillä kirjaimilla'
+#luetaan käyttäjän kirjoittama teksti AUTO muuttujaan
+read AUTO
+# verrataan AUTO muuttujaa alussa annettuihin muuttujiin
+if [ $AUTO == $AUTO1 ]
+then
+	# Kopioidaan AUTO1 auton tiedosto palvelimelta, avataan ja kopioidaan
+	# takaisin palvelimelle tiedoston sulkemisen jälkeen
+	scp $USER@$IP:$AUTO1P $HOME/Documents/polttoaine
+	libreoffice $HOME/Documents/polttoaine/$AUTO1F
+	scp $HOME/Documents/polttoaine/$AUTO1F $USER@$IP:$AUTO1P
+
+elif [ $AUTO == $AUTO2 ]
+then
+	scp $USER@$IP:$AUTO2P $HOME/Documents/polttoaine
+	libreoffice $HOME/Documents/polttoaine/$AUTO2F
+	scp $HOME/Documents/polttoaine/$AUTO2F $USER@$IP:$AUTO2P
+
+else
+	echo väärä auto valittu!
+fi

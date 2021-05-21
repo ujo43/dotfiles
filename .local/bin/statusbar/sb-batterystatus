@@ -1,0 +1,35 @@
+#!/bin/sh
+
+#Symbols
+CHARGER=
+BAT100=
+BAT75=
+BAT50=
+BAT25=
+BAT0=
+
+
+#battery capacity and status
+CAP=$(cat /sys/class/power_supply/BAT0/capacity)
+STATUS=$(cat /sys/class/power_supply/BAT0/status)
+
+if [ $STATUS = Charging ]; then
+	echo "" $CHARGER $CAP%
+
+elif [ $CAP -gt 85 ]; then
+	echo "" $BAT100 $CAP%
+
+elif [ $CAP -gt 60 ]; then
+	echo "" $BAT75 $CAP%
+
+elif [ $CAP -gt 35 ]; then
+	echo "" $BAT50 $CAP%
+
+elif [ $CAP -gt 15 ]; then
+	echo "" $BAT25 $CAP%
+
+elif [ $CAP -gt 0 ]; then
+	echo "" $BAT0 $CAP%
+fi
+
+

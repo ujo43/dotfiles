@@ -1,0 +1,9 @@
+#!/bin/sh
+
+UPDATES=$(checkupdates | wc -l)
+SYMBOL=''
+
+if [ $UPDATES -gt 0 ]; then
+	echo $SYMBOL $UPDATES
+fi
+
